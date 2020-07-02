@@ -5,10 +5,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +44,9 @@ public class ListActivity extends AppCompatActivity {
     private List<String> reg_date;
     private List<String> client_name;
     private List<String> phone_number;
+    //
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +58,9 @@ public class ListActivity extends AppCompatActivity {
         listContacts = new ArrayList<>();
 //        progressBar1 = findViewById(R.id.progressBar1);
 //        progressBar1.setVisibility(View.VISIBLE);
+        //
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = preferences.edit();
         //data
         idx = new ArrayList<>();
         reg_date = new ArrayList<>();
@@ -103,7 +112,8 @@ public class ListActivity extends AppCompatActivity {
 
     private void getList(){
         OkHttpClient client = new OkHttpClient();
-        String url = getString(R.string.web_services) + "/gift_card/";
+//        System.out.println("----- market num : "+preferences.getString("market_num", null));
+        String url = getString(R.string.web_services) + "/gift_card/?market_num="+preferences.getString("market_num", null);
 //        url = "http://172.30.1.57/gift_card/";
         Request request = new Request.Builder()
                 .url(url)

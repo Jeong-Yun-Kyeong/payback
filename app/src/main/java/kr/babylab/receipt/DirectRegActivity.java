@@ -1,7 +1,9 @@
 package kr.babylab.receipt;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -53,6 +55,9 @@ public class DirectRegActivity extends AppCompatActivity {
     private List<String> receipt_nums;
 //    private List<String> imagePathResult;
     private List<Integer> delete_btns;
+    //
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
 
     @Override
@@ -65,6 +70,8 @@ public class DirectRegActivity extends AppCompatActivity {
         receipt_nums = new ArrayList<>();
         delete_btns = new ArrayList<>();
         inputAdapter = new InputAdapter(this,business_nums,receipt_nums,delete_btns);
+        //
+
         //
         direct_reg_business = (EditText)findViewById(R.id.direct_reg_business);
         direct_reg_receipt = (EditText)findViewById(R.id.direct_reg_receipt);
@@ -205,6 +212,7 @@ public class DirectRegActivity extends AppCompatActivity {
         }else{
             OkHttpClient client = new OkHttpClient();
             RequestBody formBody = new FormBody.Builder()
+                    .add("market_num", preferences.getString("market_num", null))
                     .add("businessNum", get_business_num)
                     .build();
             String url = getString(R.string.web_services) + "/duplicate/business/";

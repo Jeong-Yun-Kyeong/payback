@@ -2,11 +2,13 @@ package kr.babylab.receipt;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.SurfaceView;
@@ -101,10 +103,16 @@ public class CameraActivity extends AppCompatActivity implements ActivityCompat.
     private LinearLayout camera_slide_list;
 
     private ActionBar actionBar;
+    //
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = preferences.edit();
         //
         float dip = 50f;
         Resources r = getResources();
@@ -341,6 +349,7 @@ public class CameraActivity extends AppCompatActivity implements ActivityCompat.
         }else{
             OkHttpClient client = new OkHttpClient();
             RequestBody formBody = new FormBody.Builder()
+                    .add("market_num", preferences.getString("market_num", null))
                     .add("businessNum", get_business_num)
                     .build();
             String url = getString(R.string.web_services) + "/duplicate/business/";

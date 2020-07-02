@@ -77,16 +77,31 @@ public class SmsActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),IssuanceActivity.class);
-                //가져온 데이터와 고객명, 전화번호 추가해서 보내기
-                    intent.putExtra("business_nums", (Serializable) business_nums);
-                intent.putExtra("receipt_nums", (Serializable) receipt_nums);
+                phoneNo = textPhoneNo.getText().toString();
+                textsms = textName.getText().toString();
+                //모두 입력 확인
+                if(textsms.length() == 0){
+                    Toast.makeText(getApplicationContext(), "이름을 입력해주세요", Toast.LENGTH_SHORT).show();
+                }else {
+                    if(phoneNo.length() >= 10 ){
+                        Intent intent = new Intent(getApplicationContext(),IssuanceActivity.class);
+                        //가져온 데이터와 고객명, 전화번호 추가해서 보내기
+                        intent.putExtra("receipt_nums", (Serializable) receipt_nums);
+                        intent.putExtra("business_nums", (Serializable) business_nums);
 //                intent.putExtra("imagePathResult", (Serializable) imagePathResult);
-                intent.putExtra("client_name", textName.getText().toString());
-                intent.putExtra("phone_number", textPhoneNo.getText().toString());
-                Log.d("","------------------ : "+textName.getText() + ", " + textPhoneNo.getText());
+                        intent.putExtra("client_name", textName.getText().toString());
+                        intent.putExtra("phone_number", textPhoneNo.getText().toString());
+                        Log.d("","------------------ : "+textName.getText() + ", " + textPhoneNo.getText());
 
-                startActivity(intent);
+                        startActivity(intent);
+                    }else{
+                        if(phoneNo.length()==0){
+                            Toast.makeText(getApplicationContext(), "전화번호를 입력해주세요", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(getApplicationContext(), "전화번호를 확인해주세요", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
             }
         });
         //
@@ -98,13 +113,23 @@ public class SmsActivity extends AppCompatActivity {
                 textsms = textName.getText().toString();
                 System.out.println(phoneNo);
                 System.out.println(textsms);
-                try{
-                    Uri smsUri = Uri.parse("sms: "+phoneNo);
-                    Intent sendIntent = new Intent(Intent.ACTION_SENDTO, smsUri);
-                    sendIntent.putExtra("sms_body", textsms+"님 본인 소유 핸드폰 인증 확인 문자입니다.");
-                    startActivity(sendIntent);
-                }catch(Exception e){
-                    e.printStackTrace();
+
+                //모두 입력 확인
+                if(textsms.length() == 0){
+                    Toast.makeText(getApplicationContext(), "이름을 입력해주세요", Toast.LENGTH_SHORT).show();
+                }else {
+                    if(phoneNo.length() >= 10 ){
+                        Uri smsUri = Uri.parse("sms: "+phoneNo);
+                        Intent sendIntent = new Intent(Intent.ACTION_SENDTO, smsUri);
+                        sendIntent.putExtra("sms_body", textsms+"님 본인 소유 핸드폰 인증 확인 문자입니다.");
+                        startActivity(sendIntent);
+                    }else{
+                        if(phoneNo.length()==0){
+                            Toast.makeText(getApplicationContext(), "전화번호를 입력해주세요", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(getApplicationContext(), "전화번호를 확인해주세요", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }
             }
         });

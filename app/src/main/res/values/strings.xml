@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PayBack</string>
+    <string name="app_name">PayBack(사업자)</string>
     <string name="web_services">http://babbling.co.kr</string>
 <!--    <string name="web_services">http://172.30.1.57</string>-->
     <style name="ProgressDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
