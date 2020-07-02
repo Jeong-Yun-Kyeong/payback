@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="splash">#4D729E</color>
+    <color name="white">#ffffff</color>
+    <color name="cornflower">#5060ff</color>
+    <color name="transparent">#00000000</color>
+    <color name="black_38">#61000001</color>
+    <color name="black_87">#de000000</color>
+    <color name="splash_background">#7CB8FF</color>
+</resources>
