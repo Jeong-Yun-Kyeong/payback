@@ -212,7 +212,7 @@ public class DirectRegActivity extends AppCompatActivity {
         }else{
             OkHttpClient client = new OkHttpClient();
             RequestBody formBody = new FormBody.Builder()
-                    .add("market_num", preferences.getString("market_num", null))
+//                    .add("market_num", preferences.getString("market_num", null))
                     .add("businessNum", get_business_num)
                     .build();
             String url = getString(R.string.web_services) + "/duplicate/business/";
